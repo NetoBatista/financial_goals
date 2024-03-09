@@ -109,7 +109,7 @@ class _CreateGoalComponentState extends State<CreateGoalComponent> {
                   context: context,
                   initialDate: _goalModel.finalDate,
                   firstDate: DateTime.now(),
-                  lastDate: DateTime.now().add(const Duration(days: 366)),
+                  lastDate: DateTime.now().add(const Duration(days: 366 * 100)),
                 );
                 if (response == null) {
                   return;

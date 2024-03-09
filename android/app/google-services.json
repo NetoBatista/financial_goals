@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "255771657922-5dc7t5r49qsqe4fo8qqmqvhuhbeph8o5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.jbsn.financial_goals",
+            "certificate_hash": "907896fe5f3e58bf909e762b96ef846f8997b5c5"
+          }
+        },
+        {
           "client_id": "255771657922-bv8i0kcd8o9d4nnab4ve09e58ns3ui8s.apps.googleusercontent.com",
           "client_type": 3
         }
