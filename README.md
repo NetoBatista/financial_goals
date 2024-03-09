@@ -1,16 +1,9 @@
-# financial_goals
+# Metas financeiras
 
-A new Flutter project.
+Aplicativo de acompanhamento de metas financeiras
 
-## Getting Started
+É possível cadastraras suas metas e transações.
 
-This project is a starting point for a Flutter application.
+Acompanhe e gerencie de forma simples o andamento das suas metas e suas ultimas transações
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://lh3.googleusercontent.com/yDJo2PZFQw2LKL0wUU1aJ7RE4_YVpd9h7jVIrtBJikhNlNvSgL9tj7bWcza8dzIM0-J6" width="200" /><img src="https://lh3.googleusercontent.com/tgwmAeaU0ba4cikLZq0Mx5dpyYE_quaIK8kyWPBJ_DUBqJ8kfRt84K6_kZ6c1wXBbSo" width="200" />
