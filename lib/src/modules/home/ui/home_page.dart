@@ -1,3 +1,4 @@
+import 'package:financial_goals/src/component/snackbar_component.dart';
 import 'package:financial_goals/src/modules/goal/controller/create_goal_controller.dart';
 import 'package:financial_goals/src/modules/goal/iu/create_goal_component.dart';
 import 'package:financial_goals/src/modules/goal/model/goal_model.dart';
@@ -49,11 +50,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Metas financeiras'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.settings),
-          ),
+        actions: const [
+          //TODO button settings
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(Icons.settings),
+          // ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -192,6 +194,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void onClickCreateGoal() {
+    if (!homeController.canCreateGoal()) {
+      SnackbarComponent.showSnackbar(
+        context,
+        text: 'só é possível criar até 3 metas',
+      );
+      return;
+    }
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,

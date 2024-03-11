@@ -229,6 +229,6 @@ class _UpdateGoalComponentState extends State<UpdateGoalComponent> {
     var goals = store.goals.value;
     goals.removeWhere((x) => x.id == widget.documentFirestore.id);
     store.goals.set(goals, force: true);
-    Modular.to.navigate('/home/');
+    Modular.to.popUntil((route) => route.settings.name == '/home/');
   }
 }

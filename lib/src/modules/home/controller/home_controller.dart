@@ -43,4 +43,8 @@ class HomeController extends ValueNotifier<HomeState> {
       value = HomeErrorState('erro ao buscar dados');
     }
   }
+
+  bool canCreateGoal() {
+    return _goalStore.goals.value.length < 3;
+  }
 }
