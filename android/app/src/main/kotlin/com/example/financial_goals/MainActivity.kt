@@ -1,4 +1,4 @@
-package br.com.jbsn.financial_goals
+package br.com.jbsn.goals
 
 import io.flutter.embedding.android.FlutterActivity
 

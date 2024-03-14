@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:255771657922:android:77fb084b06179a12d7dd5b",
         "android_client_info": {
-          "package_name": "br.com.jbsn.financial_goals"
+          "package_name": "br.com.jbsn.goals"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "255771657922-2v08hp59nd9uk30ee9p9mjlh9f4h852s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "br.com.jbsn.financial_goals",
+            "package_name": "br.com.jbsn.goals",
             "certificate_hash": "dfda309a72834f2f51b65e3e83594037bff0875d"
           }
         },
@@ -25,7 +25,7 @@
           "client_id": "255771657922-5dc7t5r49qsqe4fo8qqmqvhuhbeph8o5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "br.com.jbsn.financial_goals",
+            "package_name": "br.com.jbsn.goals",
             "certificate_hash": "907896fe5f3e58bf909e762b96ef846f8997b5c5"
           }
         },
