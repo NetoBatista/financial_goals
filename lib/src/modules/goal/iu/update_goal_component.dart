@@ -179,13 +179,13 @@ class _UpdateGoalComponentState extends State<UpdateGoalComponent> {
       return;
     }
 
-    var goals = store.goals.value;
+    var goals = store.goals.value.toList();
     var index = goals.indexWhere((x) => x.id == widget.documentFirestore.id);
     goals.removeAt(index);
     goals.insert(index, response);
-    store.goals.set(goals, force: true);
+    store.goals.set(goals);
 
-    Modular.to.pop(response);
+    Modular.to.pop();
   }
 
   Future<void> onClickRemoveGoal() async {
@@ -226,9 +226,9 @@ class _UpdateGoalComponentState extends State<UpdateGoalComponent> {
     if (!response) {
       return;
     }
-    var goals = store.goals.value;
+    var goals = store.goals.value.toList();
     goals.removeWhere((x) => x.id == widget.documentFirestore.id);
-    store.goals.set(goals, force: true);
+    store.goals.set(goals);
     Modular.to.popUntil((route) => route.settings.name == '/home/');
   }
 }

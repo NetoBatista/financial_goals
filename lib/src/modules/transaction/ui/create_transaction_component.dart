@@ -2,6 +2,7 @@ import 'package:financial_goals/src/modules/transaction/constant/transaction_typ
 import 'package:financial_goals/src/modules/transaction/controller/create_transaction_controller.dart';
 import 'package:financial_goals/src/modules/transaction/model/transaction_model.dart';
 import 'package:financial_goals/src/modules/transaction/state/create_transaction_state.dart';
+import 'package:financial_goals/src/modules/transaction/store/transaction_store.dart';
 import 'package:financial_goals/src/translate/transaction_type_translate.dart';
 import 'package:financial_goals/src/util/currency_input_format_util.dart';
 import 'package:financial_goals/src/util/format_util.dart';
@@ -13,10 +14,12 @@ import 'package:signals/signals_flutter.dart';
 class CreateTransactionComponent extends StatefulWidget {
   final CreateTransactionController controller;
   final String goalId;
+  final TransactionStore store;
   const CreateTransactionComponent({
     super.key,
     required this.controller,
     required this.goalId,
+    required this.store,
   });
 
   @override
@@ -158,8 +161,12 @@ class _CreateTransactionComponentState
       return;
     }
     var response = await controller.create(_transactionModel);
-    if (response != null) {
-      Modular.to.pop(response);
+    if (response == null) {
+      return;
     }
+    var transactions = widget.store.transactions.value.toList();
+    transactions.insert(0, response);
+    widget.store.transactions.set(transactions);
+    Modular.to.pop();
   }
 }

@@ -118,13 +118,13 @@ class _UpdateTransactionComponentState
       return;
     }
 
-    var transactions = widget.store.transactions.value;
+    var transactions = widget.store.transactions.value.toList();
     var index = transactions.indexWhere(
       (x) => x.id == widget.documentFirestore.id,
     );
     transactions.removeAt(index);
     transactions.insert(index, response);
-    widget.store.transactions.set(transactions, force: true);
+    widget.store.transactions.set(transactions);
 
     Modular.to.pop();
   }
@@ -158,9 +158,9 @@ class _UpdateTransactionComponentState
     if (!response) {
       return;
     }
-    var transactions = widget.store.transactions.value;
+    var transactions = widget.store.transactions.value.toList();
     transactions.removeWhere((x) => x.id == widget.documentFirestore.id);
-    widget.store.transactions.set(transactions, force: true);
+    widget.store.transactions.set(transactions);
     Modular.to.pop();
   }
 }
