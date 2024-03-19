@@ -3,6 +3,7 @@ import 'package:financial_goals/src/modules/goal/controller/create_goal_controll
 import 'package:financial_goals/src/modules/goal/iu/create_goal_component.dart';
 import 'package:financial_goals/src/modules/goal/model/goal_model.dart';
 import 'package:financial_goals/src/modules/home/component/goal_component.dart';
+import 'package:financial_goals/src/modules/purchase/component/premium_component.dart';
 import 'package:financial_goals/src/modules/home/component/transaction_component.dart';
 import 'package:financial_goals/src/modules/home/controller/home_controller.dart';
 import 'package:financial_goals/src/modules/home/state/home_state.dart';
@@ -50,12 +51,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Metas financeiras'),
-        actions: const [
-          //TODO button settings
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: const Icon(Icons.settings),
-          // ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Modular.to.pushNamed('/account/');
+            },
+            icon: const Icon(Icons.account_circle),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -69,6 +71,8 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const PremiumComponent(),
+              const SizedBox(height: 16),
               Center(
                 child: SegmentedButton(
                   segments: const [

@@ -185,7 +185,7 @@ class _UpdateGoalComponentState extends State<UpdateGoalComponent> {
     goals.insert(index, response);
     store.goals.set(goals);
 
-    Modular.to.pop();
+    Modular.to.pop(response);
   }
 
   Future<void> onClickRemoveGoal() async {
