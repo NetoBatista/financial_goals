@@ -1,5 +1,6 @@
 import 'package:financial_goals/src/modules/auth/data/interface/iauth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService implements IAuthService {
@@ -13,6 +14,7 @@ class AuthService implements IAuthService {
 
   @override
   Future<void> signInGoogle() async {
+    OAuthCredential? credential;
     try {
       await _googleSignIn.signOut();
       var googleSignInAccount = await _googleSignIn.signIn();
@@ -20,12 +22,18 @@ class AuthService implements IAuthService {
         return;
       }
       var googleSignInAuthentication = await googleSignInAccount.authentication;
-      var credential = GoogleAuthProvider.credential(
+      credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
       await FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
-    } catch (_) {}
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'credential-already-in-use' && credential != null) {
+        await FirebaseAuth.instance.signInWithCredential(credential);
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+    }
   }
 
   @override

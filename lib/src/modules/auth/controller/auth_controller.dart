@@ -5,7 +5,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class AuthController extends ValueNotifier<AuthState> {
   final IAuthService _authService;
-  AuthController(this._authService) : super(AuthInitialState());
+  AuthController(
+    this._authService,
+  ) : super(AuthInitialState());
 
   Future<void> init() async {
     try {
@@ -13,6 +15,7 @@ class AuthController extends ValueNotifier<AuthState> {
       if (currentUser == null) {
         await signInAnonymous();
       }
+
       Modular.to.navigate('/home/');
     } catch (error) {
       value = AuthErrorState('erro ao autenticar, por favor tente novamente');

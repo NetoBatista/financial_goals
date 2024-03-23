@@ -1,7 +1,13 @@
+import 'package:financial_goals/src/modules/purchase/controller/purchase_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class PremiumPopUpComponent extends StatelessWidget {
-  const PremiumPopUpComponent({super.key});
+  final PurchaseController controller;
+  const PremiumPopUpComponent({
+    required this.controller,
+    super.key,
+  });
 
   final text = '''
 Com o plano gratuito você já tem a praticidade de gerenciar até 3 metas financeiras. Mas por que se limitar? O Plano Premium é a chave para uma organização financeira sem fronteiras!
@@ -55,7 +61,13 @@ Com o plano gratuito você já tem a praticidade de gerenciar até 3 metas finan
           Text(text),
           const SizedBox(height: 8),
           FilledButton(
-            onPressed: () {},
+            onPressed: () async {
+              var response = await controller.continueToPayment();
+              if (response) {
+                await Modular.to.pushNamed('/purchase/');
+                Modular.to.pop();
+              }
+            },
             child: const Text('quero conhecer'),
           ),
         ],

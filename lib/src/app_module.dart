@@ -2,6 +2,7 @@ import 'package:financial_goals/src/modules/auth/ui/auth_page.dart';
 import 'package:financial_goals/src/modules/goal/goal_module.dart';
 import 'package:financial_goals/src/modules/home/home_module.dart';
 import 'package:financial_goals/src/modules/account/account_module.dart';
+import 'package:financial_goals/src/modules/purchase/purchase_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
@@ -30,6 +31,10 @@ class AppModule extends Module {
     r.module(
       '/account',
       module: AccountModule(),
+    );
+    r.module(
+      '/purchase',
+      module: PurchaseModule(),
     );
   }
 }

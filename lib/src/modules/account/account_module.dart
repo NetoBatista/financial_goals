@@ -1,6 +1,7 @@
 import 'package:financial_goals/src/modules/account/controller/account_controller.dart';
 import 'package:financial_goals/src/modules/auth/auth_module.dart';
 import 'package:financial_goals/src/modules/account/ui/account_page.dart';
+import 'package:financial_goals/src/modules/purchase/purchase_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AccountModule extends Module {
@@ -8,6 +9,7 @@ class AccountModule extends Module {
   List<Module> get imports {
     return [
       AuthModule(),
+      PurchaseModule(),
     ];
   }
 
@@ -20,7 +22,11 @@ class AccountModule extends Module {
   void routes(r) {
     r.child(
       '/',
-      child: (context) => AccountPage(controller: Modular.get()),
+      child: (context) => AccountPage(
+        controller: Modular.get(),
+        purchaseStore: Modular.get(),
+        purchaseController: Modular.get(),
+      ),
     );
   }
 }

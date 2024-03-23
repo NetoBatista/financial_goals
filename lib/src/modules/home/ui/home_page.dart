@@ -9,6 +9,8 @@ import 'package:financial_goals/src/modules/home/controller/home_controller.dart
 import 'package:financial_goals/src/modules/home/state/home_state.dart';
 import 'package:financial_goals/src/modules/home/store/goal_store.dart';
 import 'package:financial_goals/src/model/document_firestore_model.dart';
+import 'package:financial_goals/src/modules/purchase/controller/purchase_controller.dart';
+import 'package:financial_goals/src/modules/purchase/store/purchase_store.dart';
 import 'package:financial_goals/src/modules/transaction/model/transaction_model.dart';
 import 'package:financial_goals/src/modules/transaction/store/transaction_store.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +23,16 @@ class HomePage extends StatefulWidget {
   final GoalStore goalStore;
   final HomeController homeController;
   final TransactionStore transactionStore;
+  final PurchaseStore purchaseStore;
+  final PurchaseController purchaseController;
   const HomePage({
     super.key,
     required this.createGoalController,
     required this.goalStore,
     required this.homeController,
     required this.transactionStore,
+    required this.purchaseStore,
+    required this.purchaseController,
   });
 
   @override
@@ -37,6 +43,8 @@ class _HomePageState extends State<HomePage> {
   GoalStore get goalStore => widget.goalStore;
   TransactionStore get transactionStore => widget.transactionStore;
   HomeController get homeController => widget.homeController;
+  PurchaseController get purchaseController => widget.purchaseController;
+
   var viewSelected = signal('goal');
 
   @override
@@ -48,14 +56,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     context.watch<HomeController>();
+    var stateLoading = homeController.value is HomeLoadingState;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Metas financeiras'),
         actions: [
           IconButton(
-            onPressed: () {
-              Modular.to.pushNamed('/account/');
-            },
+            onPressed: onClickAccount,
             icon: const Icon(Icons.account_circle),
           ),
         ],
@@ -71,8 +78,19 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const PremiumComponent(),
-              const SizedBox(height: 16),
+              Skeletonizer(
+                enabled: stateLoading,
+                child: Column(
+                  children: [
+                    PremiumComponent(
+                      purchaseStore: widget.purchaseStore,
+                      controller: purchaseController,
+                      callBack: homeController.init,
+                    ),
+                    const SizedBox(height: 24),
+                  ],
+                ),
+              ),
               Center(
                 child: SegmentedButton(
                   segments: const [
@@ -201,7 +219,7 @@ class _HomePageState extends State<HomePage> {
     if (!homeController.canCreateGoal()) {
       SnackbarComponent.showSnackbar(
         context,
-        text: 'só é possível criar até 3 metas',
+        text: 'só é possível criar até 3 metas com plano gratuito',
       );
       return;
     }
@@ -218,5 +236,13 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  void onClickAccount() async {
+    var oldUser = homeController.currentUser?.uid;
+    await Modular.to.pushNamed('/account/');
+    if (oldUser != homeController.currentUser?.uid) {
+      homeController.init();
+    }
   }
 }

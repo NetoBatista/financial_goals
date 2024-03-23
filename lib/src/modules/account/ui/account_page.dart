@@ -1,16 +1,19 @@
 import 'package:financial_goals/src/modules/account/controller/account_controller.dart';
 import 'package:financial_goals/src/modules/account/state/account_state.dart';
 import 'package:financial_goals/src/modules/purchase/component/premium_component.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'package:financial_goals/src/modules/purchase/controller/purchase_controller.dart';
+import 'package:financial_goals/src/modules/purchase/store/purchase_store.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AccountPage extends StatefulWidget {
   final AccountController controller;
+  final PurchaseStore purchaseStore;
+  final PurchaseController purchaseController;
   const AccountPage({
     required this.controller,
+    required this.purchaseStore,
+    required this.purchaseController,
     super.key,
   });
 
@@ -20,6 +23,8 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   AccountController get controller => widget.controller;
+  PurchaseController get purchageController => widget.purchaseController;
+  PurchaseStore get purchaseStore => widget.purchaseStore;
 
   @override
   void initState() {
@@ -31,7 +36,6 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     context.watch<AccountController>();
     var state = controller.value;
-    var statePremium = state is AccountPremiumState;
     var stateInitial = state is AccountInitialState;
 
     return Scaffold(
@@ -43,9 +47,9 @@ class _AccountPageState extends State<AccountPage> {
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
-              Visibility(
-                visible: !statePremium,
-                child: const PremiumComponent(),
+              PremiumComponent(
+                purchaseStore: purchaseStore,
+                controller: purchageController,
               ),
               const SizedBox(height: 16),
               Card(
@@ -96,7 +100,7 @@ class _AccountPageState extends State<AccountPage> {
                       },
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'remover conta',
                     style: TextStyle(
                       color: Colors.redAccent,
