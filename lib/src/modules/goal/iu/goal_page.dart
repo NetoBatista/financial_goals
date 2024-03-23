@@ -198,8 +198,7 @@ class _GoalPageState extends State<GoalPage> {
   }
 
   void onClickCreateTransaction() async {
-    var response =
-        await showModalBottomSheet<DocumentFirestoreModel<TransactionModel>?>(
+    showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
@@ -208,16 +207,11 @@ class _GoalPageState extends State<GoalPage> {
           child: CreateTransactionComponent(
             controller: widget.createTransactionController,
             goalId: goalModel.value.id,
+            store: transactionStore,
           ),
         );
       },
     );
-    if (response == null) {
-      return;
-    }
-    var transactions = transactionStore.transactions.value;
-    transactions.insert(0, response);
-    transactionStore.transactions.set(transactions, force: true);
   }
 
   void onClickUpdateTransaction(

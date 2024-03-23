@@ -159,9 +159,9 @@ class _CreateGoalComponentState extends State<CreateGoalComponent> {
     if (response == null) {
       return;
     }
-    var goals = store.goals.value;
+    var goals = store.goals.value.toList();
     goals.insert(0, response);
-    store.goals.set(goals, force: true);
-    Modular.to.pop(response);
+    store.goals.set(goals);
+    Modular.to.pop();
   }
 }
